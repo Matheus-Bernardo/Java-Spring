@@ -7,8 +7,9 @@ const Itelefone = document.querySelector(".telefone");
 
 function cadastrar(){
 
-    fetch("http://localhost:8080/cadastrar",
+    fetch("http://localhost:8080/usuarios",
         {
+            mode: "cors",
             headers:{
                 'Accept' : 'application/json',
                 'Content-Type' : 'application/json',
