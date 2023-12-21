@@ -3,12 +3,14 @@ package br.com.apiCadastrar.cadastro.controller;
 import br.com.apiCadastrar.cadastro.DAO.IUsuario;
 import br.com.apiCadastrar.cadastro.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/usuarios")
 public class UsuarioController{
 
@@ -16,26 +18,25 @@ public class UsuarioController{
     private IUsuario dao;
 
     @GetMapping
-    public List<Usuario> listaUsuarios(){
-
-        return (List<Usuario>) dao.findAll();
+    public ResponseEntity<List<Usuario>> listaUsuarios(){
+        List<Usuario> lista = (List<Usuario>) dao.findAll();
+        return ResponseEntity.status(200).body(lista);
     }
     @PostMapping
-    public Usuario criarUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario){
         Usuario novoUsuario = dao.save(usuario);
-        return novoUsuario;
+        return ResponseEntity.status(201).body(novoUsuario);
     }
     @PutMapping
-    public Usuario editarUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> editarUsuario(@RequestBody Usuario usuario){
         Usuario novoUsuario = dao.save(usuario);
-        return novoUsuario;
+        return ResponseEntity.status(201).body(novoUsuario);
     }
 
     @DeleteMapping("/{id}")
-    public Optional<Usuario>  excluirUsuario(@PathVariable Integer id){
-        Optional<Usuario> usuario = dao.findById(id);
+    public ResponseEntity<?>  excluirUsuario(@PathVariable Integer id){
         dao.deleteById(id);
-        return usuario;
+        return ResponseEntity.status(204).build();
     }
 
 }
