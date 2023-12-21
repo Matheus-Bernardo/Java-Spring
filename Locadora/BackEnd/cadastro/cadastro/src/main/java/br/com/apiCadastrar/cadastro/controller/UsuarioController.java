@@ -19,7 +19,7 @@ public class UsuarioController{
 
     @GetMapping
     public ResponseEntity<List<Usuario>> listaUsuarios(){
-        List<Usuario> lista = (List<Usuario>) dao.findAll();
+        List<Usuario> lista = dao.findAll();
         return ResponseEntity.status(200).body(lista);
     }
     @PostMapping
