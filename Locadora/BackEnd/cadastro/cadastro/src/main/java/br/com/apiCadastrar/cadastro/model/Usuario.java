@@ -1,6 +1,7 @@
 package br.com.apiCadastrar.cadastro.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "usuario")
@@ -9,22 +10,26 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//auto incremento
     @Column(name="id")
     private int id;
-    @Column(name="nome_completo",length = 200,nullable = true)
+    @NotBlank(message = "O nome é obrigatório")
+    @Size(min = 3,message = "O nome deve ter no minímo 3 caracteres")
+    @Column(name="nome_completo",length = 200,nullable = false)
     private String nome;
-    @Column(name="email",length = 50,nullable = true)
+    @Email(message = "Insira um email válido!")
+    @NotBlank(message = "O email é obrigatório")
+    @Column(name="email",length = 50,nullable = false)
     private String email;
-    @Column(name="senha",columnDefinition = "TEXT",nullable = true)
+    @NotBlank(message = "A senha é obrigatória")
+    @Column(name="senha",columnDefinition = "TEXT",nullable = false)
     private String senha;
-    @Column(name="telefone",length = 15,nullable = true)
+    @NotBlank(message = "O telefone é obrigatório")
+    @Column(name="telefone",length = 15,nullable = false)
     private String telefone;
 
     //getter and setters
     public int getId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) {this.id = id;}
     public String getNome() {
         return nome;
     }
