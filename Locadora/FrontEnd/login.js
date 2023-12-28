@@ -6,6 +6,17 @@ const Isenha = document.querySelector(".senha");
 const Itelefone = document.querySelector(".telefone");
 
 
+function mostrarAviso(mensagem) {
+    const aviso = document.getElementById('aviso');
+    const mensagemElement = document.getElementById('mensagem');
+    
+    // Define a mensagem a ser exibida
+    mensagemElement.textContent = mensagem;
+    
+    // Mostra o aviso
+    aviso.style.display = 'block';
+}
+
 function login(){
 
     fetch("http://localhost:8080/usuarios/login",
@@ -28,7 +39,10 @@ function login(){
 
                 if(res.ok){
                     window.location.href= "Home.html";
-                }else{
+                }else if(res.status === 401){
+                    mostrarAviso('Não autorizado. Verifique suas credenciais.');
+                }
+                else{
                     console.log(res)}
                 }           
             )
