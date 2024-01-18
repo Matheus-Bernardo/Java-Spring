@@ -6,6 +6,8 @@ import com.MatheusBernardo.desafioAnotaAi.domain.product.Product;
 import com.MatheusBernardo.desafioAnotaAi.domain.product.ProductDTO;
 import com.MatheusBernardo.desafioAnotaAi.domain.product.exceptions.ProductNotFoundException;
 import com.MatheusBernardo.desafioAnotaAi.repositories.ProductRepository;
+import com.MatheusBernardo.desafioAnotaAi.services.aws.AwsSnsService;
+import com.MatheusBernardo.desafioAnotaAi.services.aws.MessageDTO;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
@@ -13,6 +15,9 @@ public class ProductService {
 
     private CategoryService categoryService;
     private ProductRepository repository;
+    private  AwsSnsService snsService;
+
+
     public ProductService (CategoryService categoryService, ProductRepository productRepository){
         this.categoryService = categoryService;
         this.repository = productRepository;
@@ -24,6 +29,7 @@ public class ProductService {
         Product newProduct = new Product (productDTO);
         newProduct.setCategory(category);
         this.repository.save(newProduct);
+        this.snsService.publish(new MessageDTO(newProduct.getOwnerId()));
         return newProduct;
     }
     public List<Product> getAll(){
@@ -45,6 +51,7 @@ public class ProductService {
         if(!productData.description().isEmpty()) product.setDescription(productData.description());
         if(!(productData.price() == null)) product.setPrice(productData.price());
         this.repository.save(product);
+        this.snsService.publish(new MessageDTO(product.getOwnerId()));
         return product;
     }
 
