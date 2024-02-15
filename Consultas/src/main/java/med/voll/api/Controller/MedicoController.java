@@ -28,7 +28,7 @@ public class MedicoController {
 
     @GetMapping
     public Page<DadosListagemMedico> listar(@PageableDefault(sort = {"nome"}) Pageable paginacao/*faz paginas do retorno em ordem alfabetica pelo nome*/){
-        return repository.findAll(paginacao).map(DadosListagemMedico::new);//converte a Lista de médicos para uma List definada no DTO
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);//converte a Lista de médicos para uma List definada no DTO
     }
 
     @PutMapping
@@ -38,4 +38,14 @@ public class MedicoController {
         medico.atualizarInformacoes(dados);
     }
 
+    @DeleteMapping("/{id}")//parametro dinamico
+    @Transactional
+    /*
+    @pathVariable atribui o id passado como parametro na url na variavel da função excluir
+     */
+    public void excluir(@PathVariable Long id){
+        var medico = repository.getReferenceById(id);
+        medico.excluir();
+
+    }
 }
