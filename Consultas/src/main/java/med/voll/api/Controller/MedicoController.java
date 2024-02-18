@@ -2,8 +2,8 @@ package med.voll.api.Controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.endereco.Endereco;
-import med.voll.api.medico.*;
+import med.voll.api.domain.medico.*;
+import med.voll.api.domain.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid  DadosCadastroMedico dados, UriComponentsBuilder uriBuilder){//Padrão DTO
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder){//Padrão DTO
 
         var medico = new Medico(dados);
         repository.save(medico);
@@ -56,7 +56,6 @@ public class MedicoController {
 
         return ResponseEntity.noContent().build();
     }
-
 
     @GetMapping("/{id}")//parametro dinamico
     public ResponseEntity detalhar(@PathVariable Long id){

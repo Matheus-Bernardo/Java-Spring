@@ -2,7 +2,7 @@
 Método get(Controller) vai listar os parametros definidos nesta classe
  */
 
-package med.voll.api.pacientes;
+package med.voll.api.domain.pacientes;
 
 public record DadosListagemPaciente(Long id,String nome,String cpf,String email) {
 

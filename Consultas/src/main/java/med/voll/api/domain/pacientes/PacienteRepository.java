@@ -2,7 +2,7 @@
 Classe recebe herança do Jpa- que é responsável por fazer manipulaçoes Sql
  */
 
-package med.voll.api.pacientes;
+package med.voll.api.domain.pacientes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

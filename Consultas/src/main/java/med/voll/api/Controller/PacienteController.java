@@ -3,8 +3,8 @@ package med.voll.api.Controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.medico.DadosListagemMedico;
-import med.voll.api.pacientes.*;
+import med.voll.api.domain.pacientes.*;
+import med.voll.api.domain.pacientes.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
